@@ -36,11 +36,29 @@ body{
   align-items: center;
   background-color: #fff;
 }
+.text_inp{
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 input[type="text"]{
   border: none;
   outline: none;
-  width: 65%;
+  width: 100%;
   font-size: 17px;
+}
+.line{
+  width: 0%;
+  height: 2px;
+  transition: width .5s linear;
+  background-color: rgb(0, 132, 255);
+  margin-top: 3px;
+}
+input[type="text"]:focus ~ .line{
+  width: 100%;
 }
 .icon{
   padding: 5px 10px;
@@ -67,9 +85,9 @@ input[type="text"]{
 ul{
   width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   background-color: #fff;
-  color: #fff;
 }
 li{
   width: 100%;
@@ -78,12 +96,38 @@ li{
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border: 1px solid red;
+  border-bottom: 1px solid gray;
+  position: relative;
+  overflow: hidden;
+}
+.delete{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: rgb(182, 23, 63);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  right: -10%;
+  top: 20%;
+}
+li:hover .delete{
+  right: 30px;
+  transition: 0.3s linear;
+}
+.delete:hover{
+  background-color: rgb(200, 0, 50);
 }
 li:nth-of-type(1){
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background: linear-gradient(to right, rgb(123, 44, 197), rgb(79, 39, 223));
+  color: #fff;
+  border: none;
 }
 .word{
   width: 45%;
@@ -91,4 +135,18 @@ li:nth-of-type(1){
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.index{
+  height: 100%;
+  width: 25px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+.date{
+  width: 100px;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
