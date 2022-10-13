@@ -6,6 +6,9 @@ function App() {
   const [value , setValue] = React.useState('')
   const [todo, setTodo] = React.useState([])
   const [remove, setRemove] = React.useState(0)
+  const daysName = ['Mon', "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"]
+  const Months = ['January', "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  const date = new Date()
   function getValue(e){
     setValue(e.target.value)
   }
@@ -28,30 +31,21 @@ function App() {
       return undefined
      }else{
       await axios.post('http://localhost:3001/todo',{
-        "todoName": value
+        "todoName": value,
+        "date": `${daysName[date.getDay()]} ${date.getDate()} ${Months[date.getMonth()]} ${date.getFullYear()}`,
       })
      }
   }
      
-    
-      setValue("")
+  setValue(" ")
+     
   }
 
  async function deleteTodo(id){
       await axios.delete(`http://localhost:3001/todo/${id}`)
       setRemove(id)
   }
-
-
-  function setDate() {
-    let date = new Date()
-    let d = date.getDate()
-    let day = date.getDay();
-    let month = date.getMonth()
-    let year = date.getFullYear()
-    console.log(day, month, year, d);
-  }
-  setDate()
+  
 
   return (
     <div className="App">
@@ -59,7 +53,7 @@ function App() {
         <div className="write">
           <div className="input">
             <div className="text_inp">
-            <input onInput={(e) => getValue(e)} type="text" placeholder='Add new task...'/>
+            <input onInput={(e) => getValue(e)}  value={value} placeholder='Add new task...'/>
             <div className="line"></div>
             </div>
             <div className="icon" onClick={() => postTodo()}>
@@ -73,12 +67,12 @@ function App() {
             <li>
               <span className='index'>#</span>
               <p className="word">Task title</p>
-              <span className='date'>Date</span>
+              <span className='date' id='date'>Date</span>
             </li>
             {/* {
               todo.map((item, index)=>{
                 
-                if(todo.length = 0) {
+                if(todo.length === 0) {
                   <li><span>Oops! No tasks</span><img width={30} height={40} src="" alt="" /></li>
                 }else{
                   <li key={item.id}>
@@ -97,13 +91,16 @@ function App() {
                 return <li key={item.id}>
                 <span className="index">{`${index+1}`}</span>
                 <p className="word">{item.todoName}</p>
-                <span className="date"></span>
-                <div className="delete" onClick={() => deleteTodo(item.id)}>
-                  <i className="fa fa-x"></i>
+                <div className="dateBlock">
+                  <span className="date">{item.date}</span>
+                  <div className="delete" onClick={() => deleteTodo(item.id)}>
+                    <i className="fa fa-x"></i>
+                  </div>
                 </div>
                 </li>
               })
             }
+            
           </ul>
         </div>
       </div>
