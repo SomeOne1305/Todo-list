@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios'
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
 
 function App() {
   const [value , setValue] = React.useState('')
@@ -34,18 +36,25 @@ function App() {
         "todoName": value,
         "date": `${daysName[date.getDay()]} ${date.getDate()} ${Months[date.getMonth()]} ${date.getFullYear()}`,
       })
+      Toastify({
+        text: `You're planning (${value}) at ${date.getHours()}:${date.getMinutes()}`,
+        className: "info",
+        close:true,
+        
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        }
+      }).showToast();
      }
   }
-     
   setValue(" ")
-     
   }
+  
 
  async function deleteTodo(id){
       await axios.delete(`http://localhost:3001/todo/${id}`)
       setRemove(id)
   }
-  
 
   return (
     <div className="App">
@@ -53,7 +62,7 @@ function App() {
         <div className="write">
           <div className="input">
             <div className="text_inp">
-            <input onInput={(e) => getValue(e)}  value={value} placeholder='Add new task...'/>
+            <input onInput={(e) => getValue(e)} value={value} placeholder='Add new task...'/>
             <div className="line"></div>
             </div>
             <div className="icon" onClick={() => postTodo()}>
@@ -93,9 +102,7 @@ function App() {
                 <p className="word">{item.todoName}</p>
                 <div className="dateBlock">
                   <span className="date">{item.date}</span>
-                  <div className="delete" onClick={() => deleteTodo(item.id)}>
-                    <i className="fa fa-x"></i>
-                  </div>
+                  <span className="delete" title='Delete it' onClick={()=>deleteTodo(item.id)}>Delete</span>
                 </div>
                 </li>
               })

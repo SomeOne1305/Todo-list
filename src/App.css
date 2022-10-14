@@ -7,8 +7,10 @@
 }
 body{
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background:linear-gradient(#68E7CE, #4A80E7);
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -99,29 +101,9 @@ li{
   border-bottom: 1px solid gray;
   position: relative;
   overflow: hidden;
-}
-.delete{
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: rgb(182, 23, 63);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 15px;
-  color: #fff;
   cursor: pointer;
-  display: none;
 }
-li:hover .delete{
-  display: flex;
-}
-li:hover  .dateBlock .date{
-  display: none;
-}
-.delete:hover{
-  background-color: rgb(200, 0, 50);
-}
+
 li:nth-of-type(1){
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -137,7 +119,10 @@ li:nth-of-type(1){
   white-space: nowrap;
 }
 .dateBlock{
-  width: 100px;
+  width: 130px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 .index{
   height: 100%;
@@ -147,11 +132,37 @@ li:nth-of-type(1){
   align-items: center;
 }
 .date{
-  width: 100px;
+  width: 130px;
   height: 100%;
   display: flex;
   align-items: center;
+  text-align: left;
   font-size: 12px;
+  transition: 0.6s;
+  transition-delay: 0.6s;
+}
+li:hover .dateBlock .date{
+  transform: translateY(-130%);
+}
+li:hover .dateBlock .delete{
+  left: 25%;
+  opacity: 1;
+}
+.delete{
+  background-color: rgb(235, 98, 74);
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 2px;
+  position: absolute;
+  top: 20%;
+  left: 140%;
+  transition: 0.6s;
+  transition-delay: 0.6s;
+  opacity: 0;
+}
+.delete:hover{
+  background-color: rgb(207, 44, 15);
+  transition-delay: 0s;
 }
 #date{
   font-size: 16px;
